@@ -1,22 +1,20 @@
 "use client";
 
-import { useEffect } from 'react';
+import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import RegisterForm from '../../../components/auth/RegisterForm';
 import { useUser } from '../../../context/UserContext';
+import RegisterForm from '../../../components/auth/RegisterForm';
 
-export default function RegisterPage() {
+function RegisterContent() {
   const { isAuthenticated, loading } = useUser();
   const router = useRouter();
   
   useEffect(() => {
-    // If authenticated and not loading, redirect to dashboard
     if (isAuthenticated && !loading) {
       router.push('/dashboard');
     }
   }, [isAuthenticated, loading, router]);
 
-  // Don't render register form if authenticated
   if (isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-[70vh]">
@@ -29,5 +27,13 @@ export default function RegisterPage() {
     <div className="flex items-center justify-center min-h-[70vh]">
       <RegisterForm />
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-[70vh]">Loading...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }

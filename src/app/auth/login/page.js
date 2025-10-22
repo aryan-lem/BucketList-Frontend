@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from 'react';
+import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import LoginForm from '../../../components/auth/LoginForm';
 import { useUser } from '../../../context/UserContext';
 
-export default function LoginPage() {
+// Create a client component that uses useSearchParams
+function LoginContent() {
   const { isAuthenticated, loading } = useUser();
   const router = useRouter();
   
@@ -27,7 +27,18 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[70vh]">
-      <LoginForm />
+      <Suspense fallback={<div>Loading form...</div>}>
+        <LoginForm />
+      </Suspense>
     </div>
+  );
+}
+
+// Default export with Suspense boundary
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-[70vh]">Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

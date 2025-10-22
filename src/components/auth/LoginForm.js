@@ -24,9 +24,18 @@ export default function LoginForm() {
     }
 
     // Check if redirected due to expired session
-    const expired = searchParams.get('expired') === 'true';
-    if (expired) {
-      setSessionExpired(true);
+  //   const expired = searchParams.get('expired') === 'true';
+  //   if (expired) {
+  //     setSessionExpired(true);
+  //   }
+  // }, [isAuthenticated, searchParams, router]);
+  
+  // Only try to access searchParams if it exists
+    if (searchParams) {
+      const expired = searchParams.get('expired') === 'true';
+      if (expired) {
+        setSessionExpired(true);
+      }
     }
   }, [isAuthenticated, searchParams, router]);
 
