@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react'; // Add useEffect here
 import { useRouter } from 'next/navigation';
 import { useUser } from '../../../context/UserContext';
 import RegisterForm from '../../../components/auth/RegisterForm';
