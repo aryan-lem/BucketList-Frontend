@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useEffect } from 'react'; // Add useEffect here
+import { Suspense, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser } from '../../../context/UserContext';
+import { useUser } from '../../../context/UserContext'; // Make sure this path is correct
 import RegisterForm from '../../../components/auth/RegisterForm';
 
 function RegisterContent() {
