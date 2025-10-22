@@ -1,11 +1,15 @@
+"use client";
+
+import { Suspense, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "../../../context/UserContext";
+import RegisterForm from "../../../components/auth/RegisterForm";
+
 function RegisterContent() {
   const { isAuthenticated, loading } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    console.log("RegisterContent - isAuthenticated:", isAuthenticated);
-    console.log("RegisterContent - loading:", loading);
-
     if (!loading && isAuthenticated) {
       router.push("/dashboard");
     }
@@ -31,5 +35,13 @@ function RegisterContent() {
     <div className="flex items-center justify-center min-h-[70vh]">
       <RegisterForm />
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }
